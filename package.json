@@ -1,0 +1,22 @@
+{
+  "name": "@dylanjconnor/pjax-animation",
+  "version": "1.0.0",
+  "description": "pjax animation",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DCU4/pjax-animation.git"
+  },
+  "keywords": [
+    "pjax"
+  ],
+  "author": "Dylan Connor",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DCU4/pjax-animation/issues"
+  },
+  "homepage": "https://github.com/DCU4/pjax-animation#readme"
+}

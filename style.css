@@ -1,0 +1,17 @@
+
+
+[data-pjax-wrapper] *:not([data-pjax-main]).animate-in {
+  opacity: 0;
+  animation: fade-in .5s ease .2s forwards;
+}
+[data-pjax-wrapper] *:not([data-pjax-main]).animate-out {
+  animation: fade-out .5s ease forwards;
+}
+
+[data-pjax-main] > *.animate-in {
+  opacity: 0;
+  animation: fade-in .5s ease .2s forwards;
+}
+[data-pjax-main] > *.animate-out {
+  animation: fade-out .5s ease forwards;
+}
