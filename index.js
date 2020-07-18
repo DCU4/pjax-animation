@@ -1,7 +1,7 @@
 
 options = {
   link: 'a',
-  activeMenuClass: '.current_page_item',
+  activeMenuClass: 'current_page_item',
   elsMoving: '[data-pjax-main] > section',
   elsNotMoving: ['header', 'footer']
 }
@@ -9,20 +9,20 @@ options = {
 
 
 exports.pjaxAnimate = function ( options ) {
-
+  
   let links = document.querySelectorAll(options.link);
   if (links ){
     links.forEach ((link)=>{
       link.addEventListener('click', (e) => {
-        console.log('click');
+
         let elsMoving = document.querySelector(options.elsMoving);
         let elsNotMoving = document.querySelectorAll(options.elsNotMoving);
-        let currentMenuEl = document.querySelector(options.activeMenuClass);
+        let currentMenuEl = document.querySelector(`.${options.activeMenuClass}`);
 
-        // // TODO: get current active menu item; change to new page
+        // // // TODO: get current active menu item; change to new page
         currentMenuEl.classList.remove(options.activeMenuClass);
-        e.parentElement.classList.add(options.activeMenuClass);
-        console.log(currentMenuEl, e.parentElement);
+        e.srcElement.parentElement.classList.add(options.activeMenuClass);
+        
         e.preventDefault();
 
         elsNotMoving.forEach((el,i)=> {
