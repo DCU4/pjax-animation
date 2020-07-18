@@ -9,7 +9,9 @@ options = {
 
 
 exports.pjaxAnimate = function ( options ) {
+  console.log('start');
   
+
   let links = document.querySelectorAll(options.link);
   if (links ){
     links.forEach ((link)=>{
@@ -22,6 +24,7 @@ exports.pjaxAnimate = function ( options ) {
         // // TODO: get current active menu item; change to new page
         currentMenuEl.classList.remove(activeMenuClass);
         e.parentElement.classList.add(activeMenuClass);
+        console.log(currentMenuEl, e.parentElement);
         e.preventDefault();
 
         elsNotMoving.forEach((el,i)=> {
