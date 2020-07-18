@@ -1,0 +1,57 @@
+
+
+/* [data-pjax-wrapper] *:not([data-pjax-main]).animate-in {
+  opacity: 0;
+  transform: translateX(1500px);
+  animation: slide-in-left .5s ease .2s forwards;
+}
+[data-pjax-wrapper] *:not([data-pjax-main]).animate-out {
+  animation: slide-out-left .5s ease forwards;
+} */
+
+[data-pjax-main] > *.animate-in {
+  /* opacity: 0; */
+  transform: translateX(-1500px);
+  animation: slide-in-left .5s ease .2s forwards;
+}
+[data-pjax-main] > *.animate-out {
+  animation: slide-out-left .5s ease forwards;
+}
+
+
+
+@keyframes slide-out-left {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-1500px);
+  }
+}
+
+@keyframes slide-in-left {
+  from {
+    transform: translateX(1500px);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-out-right {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(1500px);
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    transform: translateX(-1500px);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
