@@ -9,8 +9,6 @@ options = {
 
 
 exports.pjaxAnimate = function ( options ) {
-  console.log('start');
-  
 
   let links = document.querySelectorAll(options.link);
   if (links ){
@@ -19,11 +17,11 @@ exports.pjaxAnimate = function ( options ) {
         console.log('click');
         let elsMoving = document.querySelector(options.elsMoving);
         let elsNotMoving = document.querySelectorAll(options.elsNotMoving);
-        let currentMenuEl = document.querySelector(activeMenuClass);
+        let currentMenuEl = document.querySelector(options.activeMenuClass);
 
         // // TODO: get current active menu item; change to new page
-        currentMenuEl.classList.remove(activeMenuClass);
-        e.parentElement.classList.add(activeMenuClass);
+        currentMenuEl.classList.remove(options.activeMenuClass);
+        e.parentElement.classList.add(options.activeMenuClass);
         console.log(currentMenuEl, e.parentElement);
         e.preventDefault();
 
