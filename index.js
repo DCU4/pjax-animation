@@ -1,27 +1,31 @@
 
 options = {
   link: 'a',
-  activeMenuClass: 'current_page_item',
-  elsMoving: '[data-pjax-main] > section',
-  elsNotMoving: ['header', 'footer']
+  activeMenuClass: '.current_page_item',
+  elsMoving: '> section',
+  elsNotMoving: ['header', 'footer'],
+  default: 'fade'
 }
 
 
 
 exports.pjaxAnimate = function ( options ) {
+
+  if (options.default !== false){
+    setDefaultAnimation(options.default);
+  }
   
   let links = document.querySelectorAll(options.link);
+  let activeClass = options.activeMenuClass.substr(1);
   if (links ){
     links.forEach ((link)=>{
       link.addEventListener('click', (e) => {
 
-        let elsMoving = document.querySelector(options.elsMoving);
+        let elsMoving = document.querySelector(`[data-pjax-main]${options.elsMoving}`);
         let elsNotMoving = document.querySelectorAll(options.elsNotMoving);
-        let currentMenuEl = document.querySelector(`.${options.activeMenuClass}`);
-
-        // // // TODO: get current active menu item; change to new page
-        currentMenuEl.classList.remove(options.activeMenuClass);
-        e.srcElement.parentElement.classList.add(options.activeMenuClass);
+        let currentMenuEl = document.querySelector(options.activeMenuClass);
+        currentMenuEl.classList.remove(activeClass);
+        e.srcElement.parentElement.classList.add(activeClass);
         
         e.preventDefault();
 
@@ -57,6 +61,21 @@ exports.pjaxAnimate = function ( options ) {
 }
 
 
+function setDefaultAnimation(animation) {
+  let css = document.createElement('link');
+  css.rel = 'stylesheet';
+  if (animation == 'fade') {
+    css.id = 'pjax-fade';
+    css.href = '/wp-content/themes/fishtaco/node_modules/@dylanjconnor/pjax-animation/css/fade.css'
+    document.head.appendChild(css);
+  } else if (animation == 'slide') {
+    css.id = 'pjax-slide';
+    css.href = '/wp-content/themes/fishtaco/node_modules/@dylanjconnor/pjax-animation/css/slide.css'
+    document.head.appendChild(css);
+  }
+}
+
+
 function loadPage(url) {
   return fetch(url, {
     method: 'GET'
@@ -71,8 +90,7 @@ function changePage(oldEls, newEls) {
   let elsNotMoving = document.querySelectorAll(oldEls);
   
   var main = document.querySelector('[data-pjax-main]');
-  // current menu item has already been changed
-  // let currentMenuEl = document.querySelector('.current_page_item');
+  
   // Note, the URL has already been changed
   var url = window.location.href;
 
@@ -81,7 +99,6 @@ function changePage(oldEls, newEls) {
     var wrapper = document.createElement('div');
     wrapper.id = 'animateee'
     wrapper.innerHTML = responseText;
-    // console.log(wrapper);
     
     // select current first section el
     var oldContent = document.querySelector(newEls);
