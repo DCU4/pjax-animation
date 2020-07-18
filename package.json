@@ -1,6 +1,6 @@
 {
   "name": "@dylanjconnor/pjax-animation",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "pjax animation",
   "main": "index.js",
   "scripts": {
