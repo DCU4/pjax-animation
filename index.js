@@ -8,6 +8,10 @@ options = {
 }
 
 
+// TODO:
+// check for other "outside" elements that need changing ie active menu
+// binding and unbinding certain events, reevaluating plugins, and including polyfills and third-party code.
+
 
 exports.pjaxAnimate = function ( options ) {
 
@@ -20,40 +24,40 @@ exports.pjaxAnimate = function ( options ) {
   if (links ){
     links.forEach ((link)=>{
       link.addEventListener('click', (e) => {
+        if (e.srcElement.parentElement.target !== '_blank' || e.srcElement.target !== '_blank'){
+          let elsMoving = document.querySelector(`[data-pjax-main]${options.elsMoving}`);
+          let elsNotMoving = document.querySelectorAll(options.elsNotMoving);
+          let currentMenuEl = document.querySelector(options.activeMenuClass);
+          currentMenuEl.classList.remove(activeClass);
+          e.srcElement.parentElement.classList.add(activeClass);
+          
+          e.preventDefault();
 
-        let elsMoving = document.querySelector(`[data-pjax-main]${options.elsMoving}`);
-        let elsNotMoving = document.querySelectorAll(options.elsNotMoving);
-        let currentMenuEl = document.querySelector(options.activeMenuClass);
-        currentMenuEl.classList.remove(activeClass);
-        e.srcElement.parentElement.classList.add(activeClass);
-        
-        e.preventDefault();
-
-        elsNotMoving.forEach((el,i)=> {
-          el.classList.add('animate-in');
-          el.classList.add('animate-out');
-        });
+          elsNotMoving.forEach((el,i)=> {
+            el.classList.add('animate-in');
+            el.classList.add('animate-out');
+          });
 
 
-        // in async handler (ajax/timer) do these actions: 
-        setTimeout(function(){
-          if (elsMoving.classList.contains('animate-out') ) {
-            console.log('navigating...');
-            if (!e.srcElement.parentElement.href){
-              history.pushState(null, null, e.srcElement.href);
-              changePage(options.elsNotMoving, options.elsMoving);
+          // in async handler (ajax/timer) do these actions: 
+          setTimeout(function(){
+            if (elsMoving.classList.contains('animate-out') ) {
+              console.log('navigating...');
+              if (!e.srcElement.parentElement.href){
+                history.pushState(null, null, e.srcElement.href);
+                changePage(options.elsNotMoving, options.elsMoving);
+              } else {
+                history.pushState(null, null, e.srcElement.parentElement.href);
+                changePage(options.elsNotMoving, options.elsMoving);
+              }
             } else {
-              history.pushState(null, null, e.srcElement.parentElement.href);
-              changePage(options.elsNotMoving, options.elsMoving);
+              console.log('whoops', e.srcElement.parentElement.target);
             }
-          } else {
-            console.log('whoops', e.srcElement.parentElement.href);
-          }
-        }, 500);
+          }, 500);
 
-        elsMoving.classList.remove('animate-in');
-        elsMoving.classList.add('animate-out');
-       
+          elsMoving.classList.remove('animate-in');
+          elsMoving.classList.add('animate-out');
+       }
       });
     });
   }
