@@ -4,7 +4,8 @@ options = {
   activeMenuClass: '.current_page_item',
   elsMoving: '> section',
   elsNotMoving: ['header', 'footer'],
-  default: 'fade'
+  default: 'fade',
+  additionalClasses: ''
 }
 
 
@@ -34,8 +35,9 @@ exports.pjaxAnimate = function ( options ) {
           e.preventDefault();
 
           elsNotMoving.forEach((el,i)=> {
-            el.classList.add('animate-in');
+            el.classList.remove('animate-in');
             el.classList.add('animate-out');
+            el.classList.toggle(options.additionalClasses);
           });
 
 
@@ -110,9 +112,7 @@ function changePage(oldEls, newEls) {
     var newContent = wrapper.querySelector(newEls);
 
     main.appendChild(newContent);
-
     oldContent.parentNode.removeChild(oldContent);
-
 
     elsNotMoving.forEach((el,i)=> {
       el.classList.remove('animate-out');
@@ -131,10 +131,10 @@ function changePage(oldEls, newEls) {
     let newMetaTags = wrapper.querySelectorAll('#animateee meta, #animateee link, #animateee script.yoast-schema-graph, title');
     newMetaTags.forEach((tag, i, arr) => {
       
-      oldHead.insertBefore(tag, referenceNode);
+    oldHead.insertBefore(tag, referenceNode);
 
       if(i == (arr.length-1)) {
-        // console.log('removing...');
+        // console.log('removing...',oldHeadTags);
         oldHeadTags.forEach((oldTag, i) => {
           oldTag.remove();
         });
